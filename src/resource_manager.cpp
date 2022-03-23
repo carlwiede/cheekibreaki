@@ -5,7 +5,7 @@
 #include <fstream>
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include "../include/stb/stb_image.h"
 
 // instantiate static variables
 std::map<std::string, Texture2D>    ResourceManager::Textures;
