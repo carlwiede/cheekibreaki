@@ -2,5 +2,6 @@
     "files.associations": {
         "string.h": "c",
         "xstring": "cpp"
-    }
+    },
+    "cmake.configureOnOpen": false
 }
