@@ -19,7 +19,7 @@ Game::~Game()
 void Game::Init()
 {
     // load shaders
-    ResourceManager::LoadShader("B:\\Documents\\Side\\cheekibreaki\\src\\sprite.vs", "B:\\Documents\\Side\\cheekibreaki\\src\\sprite.fs", nullptr, "sprite");
+    ResourceManager::LoadShader("sprite.vs", "sprite.fs", nullptr, "sprite");
     // configure shaders
     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(this->Width), 
         static_cast<float>(this->Height), 0.0f, -1.0f, 1.0f);
@@ -30,7 +30,7 @@ void Game::Init()
     myShader = ResourceManager::GetShader("sprite");
     Renderer = new SpriteRenderer(myShader);
     // load textures
-    ResourceManager::LoadTexture("B:\\Documents\\Side\\cheekibreaki\\textures\\awesomeface.png", true, "face");
+    ResourceManager::LoadTexture("..\\textures\\awesomeface.png", true, "face");
 }
 
 void Game::Update(float dt)
