@@ -3,6 +3,7 @@
 #include "sprite_renderer.h"
 #include "game_object.h"
 #include "ball_object.h"
+#include <iostream>
 
 // Game-related state data
 SpriteRenderer  *Renderer;
@@ -30,7 +31,12 @@ Game::~Game()
 void Game::Init()
 {
     // load shaders
+    #ifdef __linux__
+    ResourceManager::LoadShader("src/sprite.vs", "src/sprite.fs", nullptr, "sprite");
+    #else
     ResourceManager::LoadShader("sprite.vs", "sprite.fs", nullptr, "sprite");
+    #endif
+
     // configure shaders
     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(this->Width), 
         static_cast<float>(this->Height), 0.0f, -1.0f, 1.0f);
@@ -40,8 +46,23 @@ void Game::Init()
     Shader myShader;
     myShader = ResourceManager::GetShader("sprite");
     Renderer = new SpriteRenderer(myShader);
-
+    
     // load textures
+    #ifdef __linux__
+    ResourceManager::LoadTexture("textures/background.jpg", false, "background");
+    ResourceManager::LoadTexture("textures/awesomeface.png", true, "face");
+    ResourceManager::LoadTexture("textures/block.png", false, "block");
+    ResourceManager::LoadTexture("textures/block_solid.png", false, "block_solid");
+    ResourceManager::LoadTexture("textures/paddle.png", true, "paddle");
+
+    // load levels
+    GameLevel one; one.Load("levels/one.lvl", this->Width, this->Height / 2);
+    GameLevel two; two.Load("levels/two.lvl", this->Width, this->Height / 2);
+    GameLevel three; three.Load("levels/three.lvl", this->Width, this->Height / 2);
+    GameLevel four; four.Load("levels/four.lvl", this->Width, this->Height / 2);
+
+    #else
+    
     ResourceManager::LoadTexture("..\\textures\\background.jpg", false, "background");
     ResourceManager::LoadTexture("..\\textures\\awesomeface.png", true, "face");
     ResourceManager::LoadTexture("..\\textures\\block.png", false, "block");
@@ -53,11 +74,15 @@ void Game::Init()
     GameLevel two; two.Load("..\\levels\\two.lvl", this->Width, this->Height / 2);
     GameLevel three; three.Load("..\\levels\\three.lvl", this->Width, this->Height / 2);
     GameLevel four; four.Load("..\\levels\\four.lvl", this->Width, this->Height / 2);
+
+    #endif
+    
     this->Levels.push_back(one);
     this->Levels.push_back(two);
     this->Levels.push_back(three);
     this->Levels.push_back(four);
     this->Level = 0;
+
 
     glm::vec2 playerPos = glm::vec2(
         this->Width / 2.0f - PLAYER_SIZE.x / 2.0f,
@@ -70,6 +95,7 @@ void Game::Init()
     Ball = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY, ResourceManager::GetTexture("face"));
 
 }
+
 
 void Game::Update(float dt)
 {

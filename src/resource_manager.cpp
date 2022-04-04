@@ -4,8 +4,14 @@
 #include <sstream>
 #include <fstream>
 
+
 #define STB_IMAGE_IMPLEMENTATION
 #include "../include/stb/stb_image.h"
+
+#ifdef __linux__
+//#include <stb/stb_image.h>
+#else
+#endif
 
 // instantiate static variables
 std::map<std::string, Texture2D>    ResourceManager::Textures;
@@ -55,7 +61,7 @@ Shader ResourceManager::loadShaderFromFile(const char *vShaderFile, const char *
         // open files
         std::ifstream vertexShaderFile(vShaderFile);
         std::ifstream fragmentShaderFile(fShaderFile);
-        std::stringstream vShaderStream, fShaderStream;
+        std::stringstream vShaderStream, fShaderStream, textStream;
         // read file's buffer contents into streams
         vShaderStream << vertexShaderFile.rdbuf();
         fShaderStream << fragmentShaderFile.rdbuf();

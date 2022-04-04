@@ -4,8 +4,15 @@
 #include <string>
 
 #include "../include/glad/glad.h"
+
+
+#ifdef __linux__
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#else
 #include "../include/glm/glm.hpp"
 #include "../include/glm/gtc/type_ptr.hpp"
+#endif
 
 // General purpose shader object. Compiles from file,
 // generates compile/link-time error messages and hosts

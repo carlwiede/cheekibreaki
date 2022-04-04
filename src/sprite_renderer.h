@@ -2,8 +2,14 @@
 #define SPRITE_RENDERER_H
 
 #include "../include/glad/glad.h"
+
+#ifdef __linux__
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#else
 #include "../include/glm/glm.hpp"
 #include "../include/glm/gtc/matrix_transform.hpp"
+#endif
 
 #include "texture.h"
 #include "shader.h"

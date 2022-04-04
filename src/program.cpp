@@ -1,5 +1,10 @@
 #include "../include/glad/glad.h"
+
+#ifdef __linux__
+#include <GLFW/glfw3.h>
+#else
 #include "../include/GLFW/glfw3.h"
+#endif
 
 #include "game.h"
 #include "resource_manager.h"
@@ -47,16 +52,20 @@ int main(int argc, char *argv[])
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+
     // initialize game
     Breakout.Init();
+
 
     // deltaTime variables
     float deltaTime = 0.0f;
     float lastFrame = 0.0f;
 
+
     // rendering function
     while (!glfwWindowShouldClose(window))
     {
+
         // calculate delta time
         float currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;

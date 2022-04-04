@@ -2,7 +2,12 @@
 #define BALLOBJECT_H
 
 #include "../include/glad/glad.h"
+
+#ifdef __linux__
+#include <glm/glm.hpp>
+#else
 #include "../include/glm/glm.hpp"
+#endif
 
 #include "game_object.h"
 #include "texture.h"
