@@ -2,12 +2,7 @@
 #define GAME_H
 
 #include "../include/glad/glad.h"
-
-#ifdef __linux__
-#include <GLFW/glfw3.h>
-#else
 #include "../include/GLFW/glfw3.h"
-#endif
 
 #include "game_level.h"
 
