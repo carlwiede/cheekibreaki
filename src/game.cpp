@@ -169,6 +169,32 @@ bool CheckCollision(GameObject &one, GameObject &two) // AABB - AABB collision
     return collisionX && collisionY;
 }
 
+bool CheckCollision(BallObject &one, GameObject &two) // AABB - Circle collision
+{
+    // get center point of circle
+    glm::vec2 center(one.Position + one.Radius);
+
+    // calculate AABB info (center & half-extents)
+    glm::vec2 aabb_half_exents(two.Size.x / 2.0f, two.Size.y / 2.0f);
+    glm::vec2 aabb_center(
+        two.Position.x + aabb_half_exents.x,
+        two.Position.y + aabb_half_exents.y
+    );
+
+    // get difference between both center
+    glm::vec2 difference = center - aabb_center;
+
+    // clamp the difference
+    glm::vec2 clamped = glm::clamp(difference, -aabb_half_exents, aabb_half_exents);
+
+    // add clamped values to aabb_center to get closest point
+    glm::vec2 closest = aabb_center + clamped;
+
+    // get distance between the closest point and circle center; return true if less than radius
+    difference = closest - center;
+    return glm::length(difference) < one.Radius;
+}
+
 void Game::DoCollisions()
 {
     for (GameObject &box : this->Levels[this->Level].Bricks)
