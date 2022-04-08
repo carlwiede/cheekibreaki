@@ -232,6 +232,8 @@ Collision CheckCollision(BallObject &one, GameObject &two) // AABB - Circle coll
 
 void Game::DoCollisions()
 {
+
+    // Ball - Brick collision
     for (GameObject &box : this->Levels[this->Level].Bricks)
     {
         if(!box.Destroyed)
@@ -272,5 +274,22 @@ void Game::DoCollisions()
                 }
             }
         }
+    }
+
+    // Ball - Paddle collision
+    Collision result = CheckCollision(*Ball, *Player);
+    if (!Ball->Stuck && std::get<0>(result))
+    {
+        // check where it hit the board, change velocity accordingly
+        float centerBoard = Player->Position.x + Player->Size.x / 2.0f;
+        float distance = (Ball->Position.x + Ball->Radius) - centerBoard;
+        float percentage = distance / (Player->Size.x / 2.0f);
+
+        // move
+        float strength = 2.0f;
+        glm::vec2 oldVelocity = Ball->Velocity;
+        Ball->Velocity.x = INITIAL_BALL_VELOCITY.x * percentage * strength;
+        Ball->Velocity.y = -Ball->Velocity.y;
+        Ball->Velocity = glm::normalize(Ball->Velocity) * glm::length(oldVelocity);
     }
 }
