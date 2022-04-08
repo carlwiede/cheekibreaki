@@ -99,7 +99,11 @@ void Game::Init()
 
 void Game::Update(float dt)
 {
+    // update objects
     Ball->Move(dt, this->Width);
+
+    // check for collisions
+    this->DoCollisions();
 }
 
 void Game::ProcessInput(float dt)
@@ -148,5 +152,34 @@ void Game::Render()
 
         // draw ball
         Ball->Draw(*Renderer);
+    }
+}
+
+bool CheckCollision(GameObject &one, GameObject &two) // AABB - AABB collision
+{
+    // collision on x-axis?
+    bool collisionX = one.Position.x + one.Size.x >= two.Position.x
+                    && two.Position.x + two.Size.x >= one.Position.x;
+
+    // collision on y-axis?
+    bool collisionY = one.Position.y + one.Size.y >= two.Position.y
+                    && two.Position.y + two.Size.y >= one.Position.y;
+
+    // return AND of both results
+    return collisionX && collisionY;
+}
+
+void Game::DoCollisions()
+{
+    for (GameObject &box : this->Levels[this->Level].Bricks)
+    {
+        if(!box.Destroyed)
+        {
+            if(CheckCollision(*Ball, box))
+            {
+                if(!box.IsSolid)
+                    box.Destroyed = true;
+            }
+        }
     }
 }

@@ -46,6 +46,9 @@ class Game
         void ProcessInput(float dt);
         void Update(float dt);
         void Render();
+
+        // collision detection
+        void DoCollisions();
 };
 
 #endif
