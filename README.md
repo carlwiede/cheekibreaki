@@ -1,7 +1,7 @@
 # cheekibreaki
 ##### Breakout 2D
 Attempt to recreate the classic game Atari Breakout.
-Libraries are stored locally so this should work as good as out of the box in VSCode (on Windows).
+Libraries are stored locally so this should work as good as out of the box in VSCode (on Windows) by running program.cpp.
 
 Linex users can compile through the make file. The dependencies are a bit unclear. Might take a look on it later.
 
