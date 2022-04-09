@@ -85,7 +85,7 @@ void ParticleGenerator::init()
 unsigned int lastUsedParticle = 0;
 unsigned int ParticleGenerator::firstUnusedParticle()
 {
-    // first search from last used particle, return almost instantly
+    // first search from last used particle, should return almost instantly
     for (unsigned int i = lastUsedParticle; i < this->amount; ++i)
     {
         if (this->particles[i].Life <= 0.0f)
@@ -104,8 +104,8 @@ unsigned int ParticleGenerator::firstUnusedParticle()
             return i;
         }
     }
-
-    // all particles are taken, override first one
+    
+    // all particles are taken, override first one, repeat amount of this is reached
     lastUsedParticle = 0;
     return 0;
 }
