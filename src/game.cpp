@@ -26,9 +26,9 @@ void Game::Init()
 {
     // load shaders
     #ifdef __linux__
-    ResourceManager::LoadShader("src/sprite.vs", "src/sprite.fs", nullptr, "sprite");
+    ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.fs", nullptr, "sprite");
     #else
-    ResourceManager::LoadShader("sprite.vs", "sprite.fs", nullptr, "sprite");
+    ResourceManager::LoadShader("..\\shaders\\sprite.vs", "..\\shaders\\sprite.fs", nullptr, "sprite");
     #endif
 
     // configure shaders
